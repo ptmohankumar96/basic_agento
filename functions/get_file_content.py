@@ -1,5 +1,6 @@
 import os
 import config
+from google import genai
 
 def get_file_content(working_directory, file_path):
         try:
@@ -23,7 +24,20 @@ def get_file_content(working_directory, file_path):
               return f"Error: getting file content: {e}"
 
 
-
+schema_get_file_content = genai.types.FunctionDeclaration(
+    name="get_file_content",
+    description="Returns the file contents of a file given the file path",
+    parameters=genai.types.Schema(
+        type=genai.types.Type.OBJECT,
+        properties={
+            "file_path": genai.types.Schema(
+                type= genai.types.Type.STRING,
+                description="File path containing the file to be read",
+            ),
+        },
+        required=["file_path"],
+    ),
+)
 
                 
 
